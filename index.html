@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://cdn.iconscout.com/icon/premium/png-512-thumb/alarm-clock-99-722432.png">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <title>ToDo List</title>
+
+    <style>
+        body {
+
+            background: linear-gradient(to top right, #00ccff 14%, #00cc66 70%)
+        }
+
+        #tasks {
+
+            display: flex;
+            flex-direction: row;
+            align-content: space-between;
+
+
+        }
+
+
+
+
+
+        .grid-item {
+            position: relative;
+            display: grid;
+            grid-template-rows: 300px;
+            grid-template-columns: 300px;
+            background: white;
+            border: 2px solid black;
+            grid-column-gap: 2px;
+            grid-gap: 3px;
+            border: none;
+            margin: 10px;
+            margin-top: 15px;
+            height: 90vh;
+        }
+
+        #todo {
+
+            width: 300px;
+
+            background: grey;
+        }
+
+        #Completed {
+
+            width: 300px;
+
+            background: grey;
+
+        }
+
+        h5,
+        i {
+
+            display: inline;
+
+            color: honeydew;
+
+        }
+
+        i {
+            float: right;
+            cursor: pointer;
+        }
+
+        .inputs {
+
+            position: relative;
+            background-color: honeydew;
+            height: 90vh;
+            margin-top: 20px;
+        }
+
+        .inputs input {
+
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 5px;
+            border: none;
+            padding: 8px 2px;
+            background-color: lavender;
+            border-radius: 15px;
+            outline: none;
+
+        }
+
+        li {
+
+            list-style-type: none;
+            margin: 1px;
+        }
+
+        #tasks .inputs li span.fa.fa-trash.delete {
+            color: #fff;
+            background-color: red;
+            padding: 5px;
+            margin-right: 20px;
+            cursor: pointer;
+            margin-left: -10px;
+            display: inline-block;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="tasks" class="container">
+
+
+        <div class="grid-item">
+            <div id="todo">
+                <div>
+                    <h5>TO DO</h5>
+                    <!-- <i class="fas fa-plus"></i> -->
+                </div>
+
+                <div class="inputs">
+                    <input type="text" id="additem" class="additem hidden" placeholder="Add New Todo" /><br>
+                    <ul class="first">
+
+                    </ul>
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="grid-item">
+            <div id="Completed">
+                <div>
+                    <h5>Completed</h5>
+                    <!-- <i class="fas fa-plus"></i> -->
+                </div>
+                <div class="inputs">
+                    <input type="text" id="addcompleted" class="addcompleted hidden"
+                        placeholder="Add Completed tasks" /><br>
+                    <ul class="second">
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#additem").on('keyup', function (e) {
+                if (e.key === 'Enter' || e.keyCode === 13) {
+                    var newlistItem = $('.additem').val();
+                    if (newlistItem != "")
+                        $('ul.first').append("<li><span></span>" + newlistItem + "</li>");
+                }
+            });
+
+
+
+
+
+
+
+
+
+            $("#addcompleted").on('keyup', function (e) {
+                if (e.key === 'Enter' || e.keyCode === 13) {
+                    var newlistItem = $('.addcompleted').val();
+                    if (newlistItem != "")
+                        $('ul.second').append("<li><span></span>" + newlistItem + "</li>");
+                }
+            });
+
+            $("ul").on("mouseenter", "li", function () {
+                $(this).find('span').addClass('fa fa-trash delete').show();
+            });
+
+            //on mouseleave hide delete icon
+            $("ul").on("mouseleave", "li", function () {
+                $(this).find('span').hide();
+            });
+
+            // on delete click remove list items
+            $('ul').on('click', '.delete', function () {
+                $(this).closest('li').remove();
+            });
+
+            $('input[type=text]').blur(function () {
+                var defaultText = '';
+                $(this).val(defaultText);
+            });
+
+
+
+            });
+
+
+    </script>
+
+
+
+
+</body>
